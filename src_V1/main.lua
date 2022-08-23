@@ -21,12 +21,13 @@ WebServer.onInvalidRequest(function(client, req, res)
 		res.success = true
 		res.statusMessage = 'OK'
 		res.headers['Content-Type'] = 'text/html'
+		-- <meta content="https://embed.com/this-is-the-site-url" property="og:url" />
+		-- ^ is optional
 		res.body = [[<title>Website Name</title>
-		<meta content="Embed Title" property="og:title" />
-		<meta content="Site Description" property="og:description" />
-		<meta content="https://embed.com/this-is-the-site-url" property="og:url" />
-		<meta content="https://embed.com/embedimage.png" property="og:image" />
-		<meta content="#43B581" data-react-helmet="true" name="theme-color"/>]]
+		<meta content="This is a url embed test" property="og:title" />
+		<meta content="Heres a cat to test the image" property="og:description" />
+		<meta content="https://cdn.discordapp.com/attachments/794824303300182027/1011668557916020827/unknown.png" property="og:image" />
+		<meta content="#000508" data-react-helmet="true" name="theme-color"/>]]
 		
 	end
 end)
