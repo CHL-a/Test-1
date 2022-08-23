@@ -5,40 +5,39 @@ local WebServer = require('WebServer')
 local cURL = require('cURL')
 
 
--- sample:
--- let our domain be `https://google.com`
-
--- client sent http request to home, being `google.com`
-WebServer.onRequest('/', 'GET', function (client, req, res)
-	res.success = true
-	res.statusCode = 200
-	res.statusMessage = 'OK'
-	res.headers.connection = 'close'
-	res.body = 'Main page'
-end) -- * returned the same object, 
-
--- client sent http request to webpage foo, which is `google.com/foo`
-.onRequest('/foo', 'GET', function (client, req, res)
-	res.success = true
-	res.statusCode = 200
-	res.statusMessage = 'OK'
-	res.headers.connection = 'close'
-	res.body = 'the foo page, welcome'
-end)
-
--- client sent http request to an invalid webpage
---[[
-	At the moment, the client connection should always close, but 
-	this part is custom so you can actually reroute the client to another webpage if desired
---]]
-.onInvalidRequest(function (client, req, res)
-
+WebServer.onInvalidRequest(function(client, req, res)
 	res.statusCode = 404
 	res.statusMessage = 'Bad request'
 	res.headers.connection = 'close'
 	res.body = 'bad request idk'
 
+	if req.headers['User-Agent']
+		== 'Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)'
+		and req.webPage == '/' 
+		and req.requestType == 'GET'
+		then
+		
+		res.statusCode = 200
+		res.success = true
+		res.statusMessage = 'OK'
+		res.headers['Content-Type'] = 'application/json'
+		res.body = [[{
+			"content": null,
+			"embeds": [
+			  {
+				"title": "heres a cat",
+				"color": null,
+				"author": {
+				  "name": "successful test"
+				},
+				"image": {
+				  "url": "https://cdn.discordapp.com/attachments/794824303300182027/1011668557916020827/unknown.png"
+				}
+			  }
+			],
+			"attachments": []
+		  }]]
+		
+	end
 end)
-
--- always last step
-.launch()
+	.launch()
