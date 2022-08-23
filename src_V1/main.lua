@@ -13,10 +13,10 @@ WebServer.onInvalidRequest(function(client, req, res)
 
 	if req.headers['User-Agent']
 		== 'Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)'
-		and req.webPage == '/' 
+		--and req.webPage == '/' 
 		and req.requestType == 'GET'
 		then
-		
+		print('met')
 		res.statusCode = 200
 		res.success = true
 		res.statusMessage = 'OK'
