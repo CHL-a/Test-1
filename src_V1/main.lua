@@ -20,23 +20,13 @@ WebServer.onInvalidRequest(function(client, req, res)
 		res.statusCode = 200
 		res.success = true
 		res.statusMessage = 'OK'
-		res.headers['Content-Type'] = 'application/json'
-		res.body = [[{
-			"content": null,
-			"embeds": [
-			  {
-				"title": "heres a cat",
-				"color": null,
-				"author": {
-				  "name": "successful test"
-				},
-				"image": {
-				  "url": "https://cdn.discordapp.com/attachments/794824303300182027/1011668557916020827/unknown.png"
-				}
-			  }
-			],
-			"attachments": []
-		  }]]
+		res.headers['Content-Type'] = 'text/html'
+		res.body = [[<title>Website Name</title>
+		<meta content="Embed Title" property="og:title" />
+		<meta content="Site Description" property="og:description" />
+		<meta content="https://embed.com/this-is-the-site-url" property="og:url" />
+		<meta content="https://embed.com/embedimage.png" property="og:image" />
+		<meta content="#43B581" data-react-helmet="true" name="theme-color"/>]]
 		
 	end
 end)
